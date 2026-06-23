@@ -1,0 +1,43 @@
+﻿@page
+@model Az_app_pritam.Pages.DeploymentSlotsModel
+
+@{
+    ViewData["Title"] = "Deployment Slots Test";
+}
+
+<div class="container mt-5">
+    <div class="card shadow">
+        <div class="card-header bg-primary text-white">
+            <h2>Azure Deployment Slot Test</h2>
+        </div>
+
+        <div class="card-body">
+            <h4>Current Deployment Information</h4>
+            <hr />
+
+            <p>
+                <strong>Slot Name:</strong>
+                @Model.SlotName
+            </p>
+
+            <p>
+                <strong>Environment:</strong>
+                @Model.EnvironmentName
+            </p>
+
+            <p>
+                <strong>Machine Name:</strong>
+                @Model.MachineName
+            </p>
+
+            <p>
+                <strong>Current Time:</strong>
+                @DateTime.Now
+            </p>
+
+            <div class="alert alert-success">
+                Version: @Model.Version
+            </div>
+        </div>
+    </div>
+</div>
