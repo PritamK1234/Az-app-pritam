@@ -1,10 +1,17 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <RootNamespace>Az_app_pritam</RootNamespace>
+    <ApplicationInsightsResourceId>/subscriptions/728a64a1-583c-4549-bfed-3be866fc6628/resourcegroups/rg-mvc-demo/providers/microsoft.insights/components/Azure-ContiniousDelivery</ApplicationInsightsResourceId>
+    <UserSecretsId>906b2348-efe8-4d86-85e1-dd82da7f2a2c</UserSecretsId>
   </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Azure.Identity" Version="1.21.0" />
+    <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="3.1.0" />
+  </ItemGroup>
 
 </Project>
