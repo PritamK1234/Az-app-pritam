@@ -5,17 +5,9 @@ namespace Az_app_pritam.Pages
 {
     public class IndexModel : PageModel
     {
-        private readonly ILogger<IndexModel> _logger;
-        private readonly IConfiguration _config;
-        public IndexModel(ILogger<IndexModel> logger, IConfiguration config)
+        public IActionResult OnGet()
         {
-            _config = config;
-            _logger = logger;
-        }
-        public void OnGet()
-        {
-            ViewData["Greetings"] = _config["Greetings"];
-
+            return RedirectToPage("/Persons/Index");
         }
     }
 }
