@@ -1,0 +1,184 @@
+@page
+@model Az_app_pritam.Pages_Persons.EditModel
+
+@{
+    ViewData["Title"] = "Edit Person";
+}
+
+<style>
+    body {
+        background: #f4f7fb;
+    }
+
+    .page-header {
+        background: linear-gradient(135deg,#0f172a,#1e293b);
+        color: white;
+        padding: 30px;
+        border-radius: 20px;
+        margin-bottom: 25px;
+        box-shadow: 0 10px 30px rgba(0,0,0,.15);
+    }
+
+        .page-header h1 {
+            margin: 0;
+            font-size: 2rem;
+            font-weight: 700;
+        }
+
+        .page-header p {
+            margin-top: 8px;
+            opacity: .8;
+        }
+
+    .edit-card {
+        max-width: 700px;
+        margin: auto;
+        background: white;
+        border-radius: 20px;
+        padding: 35px;
+        box-shadow: 0 10px 30px rgba(0,0,0,.08);
+    }
+
+    .avatar {
+        width: 90px;
+        height: 90px;
+        border-radius: 50%;
+        background: linear-gradient(135deg,#3b82f6,#8b5cf6);
+        color: white;
+        font-size: 30px;
+        font-weight: bold;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: auto;
+        margin-bottom: 25px;
+    }
+
+    .form-label {
+        font-weight: 600;
+        color: #334155;
+        margin-bottom: 8px;
+    }
+
+    .form-control {
+        border-radius: 12px;
+        padding: 12px;
+        border: 1px solid #dbe2ea;
+    }
+
+        .form-control:focus {
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 .2rem rgba(59,130,246,.15);
+        }
+
+    .btn-save {
+        background: linear-gradient(135deg,#2563eb,#3b82f6);
+        color: white;
+        border: none;
+        padding: 12px 25px;
+        border-radius: 12px;
+        font-weight: 600;
+        transition: .3s;
+    }
+
+        .btn-save:hover {
+            color: white;
+            transform: translateY(-2px);
+        }
+
+    .btn-back {
+        background: #f1f5f9;
+        color: #334155;
+        text-decoration: none;
+        padding: 12px 25px;
+        border-radius: 12px;
+        font-weight: 600;
+        transition: .3s;
+    }
+
+        .btn-back:hover {
+            background: #e2e8f0;
+            color: #0f172a;
+        }
+
+    .button-group {
+        display: flex;
+        gap: 10px;
+        margin-top: 25px;
+    }
+
+    .validation-summary-errors ul {
+        margin-bottom: 0;
+    }
+</style>
+
+<div class="page-header">
+    <h1>✏ Edit Person</h1>
+    <p>Update person information from the directory.</p>
+</div>
+
+<div class="edit-card">
+
+    <div class="avatar">
+        @($"{Model.Person.FirstName?[0]}{Model.Person.LastName?[0]}")
+    </div>
+
+    <form method="post">
+
+        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+        <input type="hidden" asp-for="Person.Id" />
+
+        <div class="mb-3">
+            <label asp-for="Person.FirstName" class="form-label">
+                First Name
+            </label>
+
+            <input asp-for="Person.FirstName" class="form-control" />
+
+            <span asp-validation-for="Person.FirstName" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Person.LastName" class="form-label">
+                Last Name
+            </label>
+
+            <input asp-for="Person.LastName" class="form-control" />
+
+            <span asp-validation-for="Person.LastName" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Person.DateOfBirth" class="form-label">
+                Date Of Birth
+            </label>
+
+            <input asp-for="Person.DateOfBirth"
+                   type="date"
+                   class="form-control" />
+
+            <span asp-validation-for="Person.DateOfBirth" class="text-danger"></span>
+        </div>
+
+        <div class="button-group">
+
+            <button type="submit" class="btn-save">
+                💾 Save Changes
+            </button>
+
+            <a asp-page="./Index" class="btn-back">
+                ← Back To List
+            </a>
+
+        </div>
+
+    </form>
+
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

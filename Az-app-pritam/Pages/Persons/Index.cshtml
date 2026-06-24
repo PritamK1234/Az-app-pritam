@@ -1,0 +1,304 @@
+@page
+@model Az_app_pritam.Pages_Persons.IndexModel
+
+@{
+    ViewData["Title"] = "People Directory";
+}
+
+<style>
+    body {
+        background: #f4f7fb;
+    }
+
+    .page-header {
+        background: linear-gradient(135deg, #0f172a, #1e293b);
+        color: white;
+        padding: 30px;
+        border-radius: 20px;
+        margin-bottom: 25px;
+        box-shadow: 0 10px 30px rgba(0,0,0,.15);
+    }
+
+        .page-header h1 {
+            margin: 0;
+            font-size: 2rem;
+            font-weight: 700;
+        }
+
+        .page-header p {
+            margin-top: 8px;
+            opacity: .8;
+        }
+
+    .custom-card {
+        background: white;
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 0 10px 30px rgba(0,0,0,.08);
+    }
+
+    .toolbar {
+        padding: 20px;
+        border-bottom: 1px solid #e5e7eb;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .btn-create {
+        background: linear-gradient(135deg,#2563eb,#3b82f6);
+        color: white;
+        padding: 10px 20px;
+        border-radius: 12px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: .3s;
+    }
+
+        .btn-create:hover {
+            color: white;
+            transform: translateY(-2px);
+        }
+
+    .table {
+        margin-bottom: 0;
+    }
+
+        .table thead {
+            background: #f8fafc;
+        }
+
+            .table thead th {
+                border: none;
+                padding: 18px;
+                font-size: .85rem;
+                text-transform: uppercase;
+                color: #64748b;
+                letter-spacing: .5px;
+            }
+
+        .table tbody td {
+            padding: 18px;
+            vertical-align: middle;
+            border-color: #f1f5f9;
+        }
+
+        .table tbody tr {
+            transition: .3s;
+        }
+
+            .table tbody tr:hover {
+                background: #f8fafc;
+            }
+
+    .person-cell {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .avatar {
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        background: linear-gradient(135deg,#3b82f6,#8b5cf6);
+        color: white;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 15px;
+    }
+
+    .person-info {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .person-name {
+        font-weight: 600;
+        color: #0f172a;
+        font-size: 15px;
+    }
+
+    .person-id {
+        color: #94a3b8;
+        font-size: 13px;
+    }
+
+    .badge-modern {
+        background: #dcfce7;
+        color: #166534;
+        padding: 6px 12px;
+        border-radius: 999px;
+        font-size: .8rem;
+        font-weight: 600;
+    }
+
+    .action-buttons {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+    }
+
+    .btn-action {
+        padding: 8px 12px;
+        border-radius: 10px;
+        text-decoration: none;
+        font-size: .85rem;
+        font-weight: 600;
+        transition: .3s;
+    }
+
+    .btn-edit {
+        background: #dbeafe;
+        color: #1d4ed8;
+    }
+
+    .btn-details {
+        background: #ede9fe;
+        color: #6d28d9;
+    }
+
+    .btn-delete {
+        background: #fee2e2;
+        color: #dc2626;
+    }
+
+    .btn-action:hover {
+        transform: translateY(-2px);
+    }
+
+    .empty-state {
+        text-align: center;
+        padding: 60px;
+    }
+
+        .empty-state h3 {
+            color: #334155;
+        }
+
+        .empty-state p {
+            color: #94a3b8;
+        }
+</style>
+
+<div class="page-header">
+    <h1>👥 People Directory</h1>
+    <p>Manage all people records from a modern dashboard.</p>
+</div>
+
+<div class="custom-card">
+
+    <div class="toolbar">
+        <h5 class="mb-0">
+            Total Records: <strong>@Model.Person.Count</strong>
+        </h5>
+
+        <a asp-page="Create" class="btn-create">
+            + Add New Person
+        </a>
+    </div>
+
+    @if (Model.Person.Any())
+    {
+        <div class="table-responsive">
+            <table class="table">
+
+                <thead>
+                    <tr>
+                        <th>Person Name</th>
+                        <th>Date Of Birth</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    @foreach (var item in Model.Person)
+                    {
+                        <tr>
+
+                            <td>
+                                <div class="person-cell">
+
+                                    <div class="avatar">
+                                        @($"{item.FirstName?[0]}{item.LastName?[0]}")
+                                    </div>
+
+                                    <div class="person-info">
+
+                                        <span class="person-name">
+                                            @item.FirstName @item.LastName
+                                        </span>
+
+                                        <span class="person-id">
+                                            Person ID : @item.Id
+                                        </span>
+
+                                    </div>
+
+                                </div>
+                            </td>
+
+                            <td>
+                                @item.DateOfBirth.ToString("dd MMM yyyy")
+                            </td>
+
+                            <td>
+                                <span class="badge-modern">
+                                    Active
+                                </span>
+                            </td>
+
+                            <td>
+                                <div class="action-buttons">
+
+                                    <a asp-page="./Edit"
+                                       asp-route-id="@item.Id"
+                                       class="btn-action btn-edit">
+                                        ✏ Edit
+                                    </a>
+
+                                    <a asp-page="./Details"
+                                       asp-route-id="@item.Id"
+                                       class="btn-action btn-details">
+                                        👁 Details
+                                    </a>
+
+                                    <a asp-page="./Delete"
+                                       asp-route-id="@item.Id"
+                                       class="btn-action btn-delete">
+                                        🗑 Delete
+                                    </a>
+
+                                </div>
+                            </td>
+
+                        </tr>
+                    }
+
+                </tbody>
+
+            </table>
+        </div>
+    }
+    else
+    {
+        <div class="empty-state">
+
+            <h3>No Records Found</h3>
+
+            <p>
+                Create your first person record to get started.
+            </p>
+
+            <a asp-page="Create" class="btn-create">
+                Create First Record
+            </a>
+
+        </div>
+    }
+
+</div>
